@@ -6,13 +6,13 @@
     
     <meta name="google-site-verification" content="LCFb6jUyBmaQBNHg7m_WTlrKaXX5xfXfc14YcKOpyEk" />
 
-    <title>Asad Tools | Best Image Resizer - Reduce KB & MB Online</title>
+    <title>Asad Tools | Pro Image Resizer - Reduce KB & MB Online</title>
     <meta name="description" content="Free online image resizer by Asad Tools. Reduce image size to 50KB, 100KB, or 200KB instantly. Best tool for government forms and social media.">
     <meta name="keywords" content="image resizer, compress image to 50kb, reduce image size, photo compressor, asad tools, pakpattan tools">
     <link rel="canonical" href="https://asadrao7325com-cloud.github.io/image-resizer/" />
 
     <style>
-        /* Animations */
+        /* Modern UI & Animations */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
@@ -45,22 +45,41 @@
         input[type="file"] { display: none; }
 
         .controls { text-align: left; margin-bottom: 20px; }
+        label { font-size: 14px; font-weight: 600; color: #555; }
+        
         .input-group { display: flex; gap: 10px; margin-top: 8px; }
-        input[type="number"], select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; flex: 1; }
+        input[type="number"], select { 
+            padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; flex: 1;
+        }
 
         button { 
             background: #764ba2; color: white; border: none; padding: 16px; 
             border-radius: 12px; font-size: 16px; font-weight: bold; 
             width: 100%; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
         }
         button:hover { background: #5a3a8a; transform: translateY(-2px); }
 
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #764ba2; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; display: none; margin: 15px auto; }
+        .loader {
+            border: 4px solid #f3f3f3; border-top: 4px solid #764ba2;
+            border-radius: 50%; width: 30px; height: 30px;
+            animation: spin 1s linear infinite; display: none; margin: 15px auto;
+        }
 
-        .ad-btn { display: inline-block; margin-top: 25px; background: #ffeb3b; color: #000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; animation: pulse 2s infinite; }
+        .ad-btn {
+            display: inline-block; margin-top: 25px; background: #ffeb3b;
+            color: #000; padding: 12px 20px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; font-size: 14px;
+            animation: pulse 2s infinite; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
 
         .seo-section { max-width: 600px; color: white; margin-top: 40px; text-align: left; line-height: 1.6; }
         .seo-section h2 { border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
+        
+        #status { margin-top: 15px; font-weight: bold; color: #4caf50; min-height: 20px; }
+        
+        footer { margin: 30px 0; text-align: center; color: white; font-size: 12px; }
+        footer a { color: white; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -74,7 +93,7 @@
 
     <div class="card">
         <h1>Asad Tools Resizer</h1>
-        <p style="color: #666; font-size: 14px;">The fastest way to reduce image size</p>
+        <p style="color: #666; font-size: 14px;">Fast & Private Image Compression</p>
         
         <label class="upload-area" for="imageInput">
             <strong id="file-label">📁 Click to Select Photo</strong>
@@ -82,7 +101,7 @@
         </label>
 
         <div class="controls">
-            <label style="font-weight: bold;">Enter Target Size:</label>
+            <label>Set Target Size:</label>
             <div class="input-group">
                 <input type="number" id="targetSize" value="100">
                 <select id="sizeUnit">
@@ -93,23 +112,28 @@
         </div>
 
         <button id="mainBtn" onclick="compressToTarget()">Compress & Download</button>
+        
         <div class="loader" id="spinner"></div>
-        <div id="status" style="margin-top:10px; font-weight:bold; color:#4caf50;"></div>
+        <div id="status"></div>
 
-        <a href="PASTE_YOUR_SMARTLINK_HERE" class="ad-btn" target="_blank">🚀 More Tools & Features</a>
+        <a href="PASTE_YOUR_SMARTLINK_HERE" class="ad-btn" target="_blank">
+            🚀 Try More Free Tools
+        </a>
     </div>
 
     <div class="seo-section">
-        <h2>How to use Asad Tools Image Resizer?</h2>
-        <p>Are you looking to reduce image size online? Asad Tools provides a free, fast, and private way to compress images to exactly 50KB, 100KB, or any size you need.</p>
+        <h2>Free Online Image Resizer by Asad Tools</h2>
+        <p>Easily reduce image size online for free. Our tool helps you compress photos to 50KB, 100KB, or 200KB instantly. Perfect for job applications, government portals, and social media.</p>
         <ul>
-            <li><strong>Step 1:</strong> Select your JPEG or PNG image.</li>
-            <li><strong>Step 2:</strong> Type your desired file size (e.g., 100 for 100KB).</li>
-            <li><strong>Step 3:</strong> Click Compress and Download your optimized photo instantly.</li>
+            <li>Secure & Private: Images are processed in your browser.</li>
+            <li>No Quality Loss: Professional compression algorithms.</li>
+            <li>Fast & Free: No registration required.</li>
         </ul>
     </div>
 
-    <p style="color: white; margin: 30px 0; font-size: 12px;">© 2026 Asad Rao Tools | Verified by Google</p>
+    <footer>
+        © 2026 Asad Rao Tools | <a href="privacy.html">Privacy Policy</a>
+    </footer>
 
     <script>
         const imageInput = document.getElementById('imageInput');
@@ -118,15 +142,25 @@
         const status = document.getElementById('status');
         const mainBtn = document.getElementById('mainBtn');
 
-        imageInput.onchange = () => { if(imageInput.files[0]) fileLabel.innerText = "✓ " + imageInput.files[0].name; };
+        imageInput.onchange = () => {
+            if(imageInput.files[0]) {
+                fileLabel.innerText = "✓ " + imageInput.files[0].name;
+                fileLabel.style.color = "#764ba2";
+            }
+        };
 
         function compressToTarget() {
             const file = imageInput.files[0];
             if (!file) return alert("Please select an image!");
+
             const targetVal = document.getElementById('targetSize').value;
             const unit = document.getElementById('sizeUnit').value;
             let targetBytes = unit === 'kb' ? targetVal * 1024 : targetVal * 1024 * 1024;
-            spinner.style.display = "block"; status.innerText = ""; mainBtn.disabled = true;
+            
+            spinner.style.display = "block";
+            status.innerText = "";
+            mainBtn.disabled = true;
+
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = (e) => {
@@ -137,15 +171,19 @@
                     const ctx = canvas.getContext('2d');
                     canvas.width = img.width; canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
+
                     function attempt(q) {
                         canvas.toBlob((blob) => {
-                            if (blob.size > targetBytes && q > 0.05) { attempt(q - 0.05); } 
-                            else {
+                            if (blob.size > targetBytes && q > 0.05) {
+                                attempt(q - 0.05);
+                            } else {
                                 const url = URL.createObjectURL(blob);
                                 const link = document.createElement('a');
-                                link.href = url; link.download = "asad_tools_" + file.name;
+                                link.href = url;
+                                link.download = "asad_tools_" + file.name;
                                 link.click();
-                                spinner.style.display = "none"; status.innerText = "Done! Size: " + (blob.size/1024).toFixed(1) + " KB";
+                                spinner.style.display = "none";
+                                status.innerText = "Success! Size: " + (blob.size / 1024).toFixed(1) + " KB";
                                 mainBtn.disabled = false;
                             }
                         }, 'image/jpeg', q);
