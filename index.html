@@ -3,76 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Size Reducer</title>
+    <title>Pro Image Resizer | Animated</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f7f6; }
-        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; }
-        #upload-slot { border: 2px dashed #007bff; padding: 40px; cursor: pointer; margin-bottom: 20px; }
-        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-        #preview { margin-top: 20px; max-width: 100%; height: auto; display: none; }
+        /* Modern UI & Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; margin: 0; color: #333;
+        }
+
+        .card { 
+            background: white; padding: 2.5rem; border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
+            width: 90%; max-width: 450px; text-align: center;
+            animation: fadeIn 0.8s ease-out; /* Entry Animation */
+        }
+
+        h1 { color: #4a148c; margin-bottom: 1rem; font-size: 24px; }
+
+        .upload-area { 
+            border: 2px dashed #764ba2; padding: 40px; border-radius: 15px; 
+            cursor: pointer; background: #f9f7ff; display: block;
+            margin-bottom: 20px; transition: all 0.3s ease;
+        }
+
+        .upload-area:hover { border-color: #667eea; background: #f0edff; transform: scale(1.02); }
+        
+        input[type="file"] { display: none; }
+
+        .controls { display: flex; flex-direction: column; gap: 15px; text-align: left; margin-bottom: 20px; }
+        
+        input[type="number"], select { 
+            padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+            outline: none; transition: 0.3s;
+        }
+
+        input:focus { border-color: #764ba2; box-shadow: 0 0 5px rgba(118, 75, 162, 0.3); }
+
+        button { 
+            background: #764ba2; color: white; border: none; 
+            padding: 15px; border-radius: 10px; font-size: 16px; 
+            font-weight: 600; cursor: pointer; width: 100%;
+            transition: 0.3s; box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+        }
+
+        button:hover { background: #667eea; transform: translateY(-2px); }
+        button:active { transform: translateY(0); }
+
+        /* Spinner Styles */
+        .loader {
+            border: 4px solid #f3f3f3; border-top: 4px solid #764ba2;
+            border-radius: 50%; width: 30px; height: 30px;
+            animation: spin 1s linear infinite; display: none; margin: 15px auto;
+        }
+
+        #status { margin-top: 15px; font-weight: bold; color: #4caf50; min-height: 20px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Reduce Image Size (MB)</h2>
-    <div id="upload-slot">
-        <input type="file" id="imageInput" accept="image/*">
-        <p>Click to upload or drag an image here</p>
-    </div>
+<div class="card">
+    <h1>Image Resizer Pro</h1>
+    <p style="color: #666; margin-bottom: 20px;">Reduce file size instantly</p>
     
-    <div>
-        <label>Target Quality (0.1 to 1.0): </label>
-        <input type="number" id="quality" step="0.1" min="0.1" max="1.0" value="0.7">
+    <label class="upload-area" for="imageInput">
+        <strong id="file-label">Click to select photo</strong>
+        <input type="file" id="imageInput" accept="image/*">
+    </label>
+
+    <div class="controls">
+        <label style="font-size: 14px; font-weight: 600;">Target Size:</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="number" id="targetSize" value="100" style="flex: 2;">
+            <select id="sizeUnit" style="flex: 1;">
+                <option value="kb">KB</option>
+                <option value="mb">MB</option>
+            </select>
+        </div>
     </div>
-    <br>
-    <button onclick="compressImage()">Compress & Download</button>
-    <br>
-    <img id="preview" alt="Preview">
+
+    <button id="mainBtn" onclick="compressToTarget()">Compress & Download</button>
+    
+    <div class="loader" id="spinner"></div>
+    <div id="status"></div>
 </div>
 
 <script>
-    function compressImage() {
-        const fileInput = document.getElementById('imageInput');
-        const qualityInput = document.getElementById('quality').value;
-        const preview = document.getElementById('preview');
+    const imageInput = document.getElementById('imageInput');
+    const fileLabel = document.getElementById('file-label');
+    const spinner = document.getElementById('spinner');
+    const status = document.getElementById('status');
+    const mainBtn = document.getElementById('mainBtn');
 
-        if (fileInput.files.length === 0) return alert("Please select a file");
+    imageInput.onchange = () => {
+        if(imageInput.files[0]) {
+            fileLabel.innerText = "✓ " + imageInput.files[0].name;
+            fileLabel.style.color = "#764ba2";
+        }
+    };
 
-        const file = fileInput.files[0];
+    async function compressToTarget() {
+        const file = imageInput.files[0];
+        if (!file) return alert("Please select an image first!");
+
+        const targetInput = document.getElementById('targetSize').value;
+        const unit = document.getElementById('sizeUnit').value;
+        
+        let targetBytes = unit === 'kb' ? targetInput * 1024 : targetInput * 1024 * 1024;
+        
+        // Show Animation
+        spinner.style.display = "block";
+        status.innerText = "";
+        mainBtn.disabled = true;
+        mainBtn.style.opacity = "0.7";
+
         const reader = new FileReader();
-
-        reader.onload = function(event) {
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
             const img = new Image();
             img.src = event.target.result;
-
-            img.onload = function() {
+            img.onload = () => {
+                let quality = 0.95;
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
-
-                // Set dimensions
+                
                 canvas.width = img.width;
                 canvas.height = img.height;
-
-                // Draw image to canvas
                 ctx.drawImage(img, 0, 0);
 
-                // Export to Blob with reduced quality
-                canvas.toBlob((blob) => {
-                    const url = URL.createObjectURL(blob);
-                    preview.src = url;
-                    preview.style.display = "block";
-
-                    // Trigger Auto-Download
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = "compressed-image.jpg";
-                    link.click();
-                }, 'image/jpeg', parseFloat(qualityInput));
-            }
-        }
-        reader.readAsDataURL(file);
+                function attemptCompression(q) {
+                    canvas.toBlob((blob) => {
+                        // If file is still too big, lower quality and try again
+                        if (blob.size > targetBytes && q > 0.05) {
+                            attemptCompression(q - 0.05);
+                        } else {
+                            const url = URL.createObjectURL(blob);
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.download = `compressed_${file.name}`;
+                            link.click();
+                            
+                            // Finish Animation
+                            spinner.style.display = "none";
+                            status.innerText = "Success! Saved at " + (blob.size / 1024).toFixed(1) + " KB";
+                            mainBtn.disabled = false;
+                            mainBtn.style.opacity = "1";
+                        }
+                    }, 'image/jpeg', q);
+                }
+                attemptCompression(quality);
+            };
+        };
     }
 </script>
+
 </body>
 </html>
